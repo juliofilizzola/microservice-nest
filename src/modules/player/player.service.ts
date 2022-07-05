@@ -43,7 +43,11 @@ export class PlayerService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} player`;
+  remove(id: string) {
+    return this.prismaService.player.delete({
+      where: {
+        id,
+      },
+    });
   }
 }
