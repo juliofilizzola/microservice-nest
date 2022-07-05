@@ -25,8 +25,12 @@ export class PlayerService {
     return this.prismaService.player.findMany({});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} player`;
+  findOne(id: string) {
+    return this.prismaService.player.findFirst({
+      where: {
+        id,
+      },
+    });
   }
 
   update(id: number, updatePlayerDto: UpdatePlayerDto) {

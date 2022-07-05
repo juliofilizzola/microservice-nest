@@ -19,7 +19,7 @@ export class PlayerController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.playerService.findOne(+id);
+    return this.playerService.findOne(id);
   }
 
   @Patch(':id')
