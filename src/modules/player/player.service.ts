@@ -33,8 +33,14 @@ export class PlayerService {
     });
   }
 
-  update(id: number, updatePlayerDto: UpdatePlayerDto) {
-    return `This action updates a #${id} player`;
+  update(id: string, updatePlayerDto: UpdatePlayerDto) {
+    const { email, ...data } = updatePlayerDto;
+    return this.prismaService.player.update({
+      where: {
+        id,
+      },
+      data,
+    });
   }
 
   remove(id: number) {
