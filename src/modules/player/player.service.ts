@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { PrismaService } from '../../prisma/prisma.service';
@@ -6,7 +6,16 @@ import { PrismaService } from '../../prisma/prisma.service';
 @Injectable()
 export class PlayerService {
   constructor(private readonly prismaService: PrismaService) {}
-  create(createPlayerDto: CreatePlayerDto) {
+  async create(createPlayerDto: CreatePlayerDto) {
+    const player = await this.prismaService.player.findFirst({
+      where: {
+        email: createPlayerDto.email,
+      },
+    });
+
+    if (player) {
+      throw new BadRequestException('email area exist');
+    }
     return this.prismaService.player.create({
       data: createPlayerDto,
     });
