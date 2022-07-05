@@ -22,7 +22,7 @@ export class PlayerService {
   }
 
   findAll() {
-    return `This action returns all player`;
+    return this.prismaService.player.findMany({});
   }
 
   findOne(id: number) {
